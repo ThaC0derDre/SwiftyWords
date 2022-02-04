@@ -40,8 +40,28 @@ class ViewController: UIViewController {
         answersLabel.text           = "ANSWERS"
         answersLabel.font           = UIFont.systemFont(ofSize: 24)
         answersLabel.numberOfLines  = 0
+        answersLabel.textAlignment  = .right
         answersLabel.translatesAutoresizingMaskIntoConstraints  = false
         view.addSubview(answersLabel)
+        
+        currentAnswer                           = UITextField()
+        currentAnswer.textAlignment             = .center
+        currentAnswer.placeholder               = "Tap letters to guess"
+        currentAnswer.font                      = UIFont.systemFont(ofSize: 44)
+        currentAnswer.isUserInteractionEnabled  = false
+        currentAnswer.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(currentAnswer)
+        
+        let submit  = UIButton(type: .system)
+        submit.setTitle("SUBMIT", for: .normal)
+        submit.translatesAutoresizingMaskIntoConstraints        = false
+        view.addSubview(submit)
+        
+        let clear   = UIButton(type: .system)
+        clear.setTitle("CLEAR", for: .normal)
+        clear.translatesAutoresizingMaskIntoConstraints         = false
+        view.addSubview(clear)
+        
         
         NSLayoutConstraint.activate([
             scoreLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
@@ -54,8 +74,19 @@ class ViewController: UIViewController {
             answersLabel.topAnchor.constraint(equalTo: scoreLabel.bottomAnchor),
             answersLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -100),
             answersLabel.widthAnchor.constraint(equalTo: view.layoutMarginsGuide.widthAnchor, multiplier: 0.4, constant: -100),
-            answersLabel.heightAnchor.constraint(equalTo: cluesLabel.heightAnchor)
+            answersLabel.heightAnchor.constraint(equalTo: cluesLabel.heightAnchor),
             
+            currentAnswer.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            currentAnswer.topAnchor.constraint(equalTo: cluesLabel.bottomAnchor, constant: 20),
+            currentAnswer.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5),
+            
+            submit.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -100),
+            submit.topAnchor.constraint(equalTo: currentAnswer.bottomAnchor),
+            submit.heightAnchor.constraint(equalToConstant: 44),
+            
+            clear.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 100),
+            clear.centerYAnchor.constraint(equalTo: submit.centerYAnchor),
+            clear.heightAnchor.constraint(equalToConstant: 44)
             
         ])
     }
