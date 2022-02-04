@@ -34,6 +34,7 @@ class ViewController: UIViewController {
         cluesLabel.font             = UIFont.systemFont(ofSize: 24)
         cluesLabel.numberOfLines    = 0
         cluesLabel.translatesAutoresizingMaskIntoConstraints    = false
+        cluesLabel.setContentHuggingPriority(UILayoutPriority(1), for: .vertical)
         view.addSubview(cluesLabel)
         
         answersLabel                = UILabel()
@@ -42,6 +43,7 @@ class ViewController: UIViewController {
         answersLabel.numberOfLines  = 0
         answersLabel.textAlignment  = .right
         answersLabel.translatesAutoresizingMaskIntoConstraints  = false
+        answersLabel.setContentHuggingPriority(UILayoutPriority(1), for: .vertical)
         view.addSubview(answersLabel)
         
         currentAnswer                           = UITextField()
@@ -51,6 +53,10 @@ class ViewController: UIViewController {
         currentAnswer.isUserInteractionEnabled  = false
         currentAnswer.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(currentAnswer)
+        
+        let buttonsView     = UIView()
+        buttonsView.translatesAutoresizingMaskIntoConstraints   =   false
+        view.addSubview(buttonsView)
         
         let submit  = UIButton(type: .system)
         submit.setTitle("SUBMIT", for: .normal)
@@ -86,9 +92,32 @@ class ViewController: UIViewController {
             
             clear.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 100),
             clear.centerYAnchor.constraint(equalTo: submit.centerYAnchor),
-            clear.heightAnchor.constraint(equalToConstant: 44)
+            clear.heightAnchor.constraint(equalToConstant: 44),
+            
+            buttonsView.topAnchor.constraint(equalTo: submit.bottomAnchor),
+            buttonsView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            buttonsView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -30),
+            buttonsView.widthAnchor.constraint(equalToConstant: 750),
+            buttonsView.heightAnchor.constraint(equalToConstant: 320)
             
         ])
+        // set up buttons in Collection, 4x5 row to coloumn
+        let width   = 150
+        let height  = 80
+        
+        for row in 0..<4 {
+            for col in 0..<5 {
+                let button  = UIButton(type: .system)
+                button.titleLabel?.font = UIFont.systemFont(ofSize: 34)
+                button.setTitle("WWW", for: .normal)
+                
+                let frame   = CGRect(x: width * col, y: height * row, width: width, height: height)
+                button.frame    = frame
+                buttonsView.addSubview(button)
+                letterButtons.append(button)
+            }
+        }
+        
     }
 
 }
