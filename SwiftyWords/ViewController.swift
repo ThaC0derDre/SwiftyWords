@@ -9,6 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    var gameLabel: UILabel!
     var cluesLabel: UILabel!
     var answersLabel: UILabel!
     var scoreLabel: UILabel!
@@ -34,6 +35,14 @@ class ViewController: UIViewController {
     override func loadView() {
         view                                                    = UIView()
         view.backgroundColor                                    = .systemBackground
+        
+        gameLabel                                               = UILabel()
+        gameLabel.text                                          = "Swifty Words"
+        gameLabel.textAlignment                                 = .center
+        gameLabel.textColor                                     = .systemIndigo
+        gameLabel.font                                          = UIFont(name: "Zapfino", size: 60)
+        gameLabel.translatesAutoresizingMaskIntoConstraints     = false
+        view.addSubview(gameLabel)
                                     
         scoreLabel                                              = UILabel()
         scoreLabel.textAlignment                                = .right
@@ -88,12 +97,16 @@ class ViewController: UIViewController {
         NSLayoutConstraint.activate([
             scoreLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
             scoreLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+            
+            gameLabel.topAnchor.constraint(equalTo: scoreLabel.bottomAnchor),
+            gameLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 100),
+            gameLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -100),
 
-            cluesLabel.topAnchor.constraint(equalTo: scoreLabel.bottomAnchor),
+            cluesLabel.topAnchor.constraint(equalTo: gameLabel.bottomAnchor),
             cluesLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 100),
             cluesLabel.widthAnchor.constraint(equalTo: view.layoutMarginsGuide.widthAnchor, multiplier: 0.6, constant: 100),
             
-            answersLabel.topAnchor.constraint(equalTo: scoreLabel.bottomAnchor),
+            answersLabel.topAnchor.constraint(equalTo: gameLabel.bottomAnchor),
             answersLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -100),
             answersLabel.widthAnchor.constraint(equalTo: view.layoutMarginsGuide.widthAnchor, multiplier: 0.4, constant: -100),
             answersLabel.heightAnchor.constraint(equalTo: cluesLabel.heightAnchor),
@@ -151,7 +164,7 @@ class ViewController: UIViewController {
     
     @objc func submitTapped (_ sender: UIButton) {
             guard let submittedAnswer           = currentAnswer.text else { return }
-        
+            if submittedAnswer == "" { return }
             if let solutionPosition             = solutions.firstIndex(of: submittedAnswer) {
             activatedButton.removeAll()
             var updatedAnswers                  = answersLabel.text?.components(separatedBy: "\n")
@@ -175,7 +188,13 @@ class ViewController: UIViewController {
                 present(ac, animated: true)
             }
             
-        }
+            }else {
+                let ac = UIAlertController(title: "Wrong!", message: "Is that even a word?\nGuess again", preferredStyle: .alert)
+                let alert = UIAlertAction(title: "Ok", style: .cancel)
+                ac.addAction(alert)
+                present(ac, animated: true)
+            }
+        
     }
     
     @objc func letterTapped (_ sender: UIButton) {
