@@ -15,6 +15,13 @@ class ViewController: UIViewController {
     var currentAnswer: UITextField!
     var letterButtons = [UIButton]()
     
+    var activatedButton = [UIButton]()
+    var solutions       = [String]()
+    
+    var score           = 0
+    var level           = 1
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -58,14 +65,16 @@ class ViewController: UIViewController {
         buttonsView.translatesAutoresizingMaskIntoConstraints   =   false
         view.addSubview(buttonsView)
         
-        let submit  = UIButton(type: .system)
+        let submit          = UIButton(type: .system)
         submit.setTitle("SUBMIT", for: .normal)
         submit.translatesAutoresizingMaskIntoConstraints        = false
+        submit.addTarget(self, action: #selector(submitTapped(_:)), for: .touchUpInside)
         view.addSubview(submit)
         
-        let clear   = UIButton(type: .system)
+        let clear           = UIButton(type: .system)
         clear.setTitle("CLEAR", for: .normal)
         clear.translatesAutoresizingMaskIntoConstraints         = false
+        clear.addTarget(self, action: #selector(clearTapped(_:)), for: .touchUpInside)
         view.addSubview(clear)
         
         
@@ -107,18 +116,35 @@ class ViewController: UIViewController {
         
         for row in 0..<4 {
             for col in 0..<5 {
-                let button  = UIButton(type: .system)
-                button.titleLabel?.font = UIFont.systemFont(ofSize: 34)
-                button.setTitle("WWW", for: .normal)
+                let letterButton  = UIButton(type: .system)
+                letterButton.titleLabel?.font = UIFont.systemFont(ofSize: 34)
+                letterButton.setTitle("WWW", for: .normal)
+                letterButton.addTarget(self, action: #selector(letterTapped(_:)), for: .touchUpInside)
                 
                 let frame   = CGRect(x: width * col, y: height * row, width: width, height: height)
-                button.frame    = frame
-                buttonsView.addSubview(button)
-                letterButtons.append(button)
+                letterButton.frame    = frame
+                buttonsView.addSubview(letterButton)
+                letterButtons.append(letterButton)
             }
         }
         
     }
-
+        // make actions for buttons; Submit, clear, and letter
+    
+    @objc func clearTapped (_ sender: UIButton) {
+        
+    }
+    
+    
+    @objc func submitTapped (_ sender: UIButton) {
+        
+    }
+    
+    
+    @objc func letterTapped (_ sender: UIButton) {
+        
+    }
+    
+    
 }
 

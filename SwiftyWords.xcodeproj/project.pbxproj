@@ -13,6 +13,8 @@
 		31F7F91227ADBE21006B09DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31F7F91027ADBE21006B09DF /* Main.storyboard */; };
 		31F7F91427ADBE21006B09DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 31F7F91327ADBE21006B09DF /* Assets.xcassets */; };
 		31F7F91727ADBE21006B09DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31F7F91527ADBE21006B09DF /* LaunchScreen.storyboard */; };
+		31F7F92027AEF98A006B09DF /* level-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 31F7F91E27AEF98A006B09DF /* level-1.txt */; };
+		31F7F92127AEF98A006B09DF /* level-2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 31F7F91F27AEF98A006B09DF /* level-2.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		31F7F91327ADBE21006B09DF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		31F7F91627ADBE21006B09DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		31F7F91827ADBE21006B09DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		31F7F91E27AEF98A006B09DF /* level-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "level-1.txt"; sourceTree = "<group>"; };
+		31F7F91F27AEF98A006B09DF /* level-2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "level-2.txt"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +65,8 @@
 				31F7F90E27ADBE21006B09DF /* ViewController.swift */,
 				31F7F91027ADBE21006B09DF /* Main.storyboard */,
 				31F7F91327ADBE21006B09DF /* Assets.xcassets */,
+				31F7F91E27AEF98A006B09DF /* level-1.txt */,
+				31F7F91F27AEF98A006B09DF /* level-2.txt */,
 				31F7F91527ADBE21006B09DF /* LaunchScreen.storyboard */,
 				31F7F91827ADBE21006B09DF /* Info.plist */,
 			);
@@ -128,6 +134,8 @@
 				31F7F91727ADBE21006B09DF /* LaunchScreen.storyboard in Resources */,
 				31F7F91427ADBE21006B09DF /* Assets.xcassets in Resources */,
 				31F7F91227ADBE21006B09DF /* Main.storyboard in Resources */,
+				31F7F92027AEF98A006B09DF /* level-1.txt in Resources */,
+				31F7F92127AEF98A006B09DF /* level-2.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
