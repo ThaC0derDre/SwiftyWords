@@ -13,13 +13,16 @@ class ViewController: UIViewController {
     var answersLabel: UILabel!
     var scoreLabel: UILabel!
     var currentAnswer: UITextField!
-    var letterButtons   = [UIButton]()
     
+    var letterButtons   = [UIButton]()
     var activatedButton = [UIButton]()
     var solutions       = [String]()
-    
-    var score           = 0
     var level           = 1
+    var score           = 0 {
+        didSet {
+            scoreLabel.text = "Score: \(score)"
+        }
+    }
     
     
     override func viewDidLoad() {
@@ -30,7 +33,7 @@ class ViewController: UIViewController {
     
     override func loadView() {
         view                                                    = UIView()
-        view.backgroundColor                                    = .white
+        view.backgroundColor                                    = .systemBackground
                                     
         scoreLabel                                              = UILabel()
         scoreLabel.textAlignment                                = .right
@@ -64,6 +67,8 @@ class ViewController: UIViewController {
         view.addSubview(currentAnswer)
         
         let buttonsView                                         = UIView()
+        buttonsView.layer.borderColor                           = UIColor.systemGray.cgColor
+        buttonsView.layer.borderWidth                           = 2
         buttonsView.translatesAutoresizingMaskIntoConstraints   =   false
         view.addSubview(buttonsView)
         
@@ -156,6 +161,13 @@ class ViewController: UIViewController {
             score               += 1
             currentAnswer.text  = ""
             
+                if score % 14 == 0 {
+                    let ac = UIAlertController(title: "Level Complete!", message: "Haha!\nWell done! You solved all the clues and beat the game!", preferredStyle: .alert)
+                    let action = UIAlertAction(title: "Play again!", style: .default, handler: resetGame)
+                    ac.addAction(action)
+                    present(ac, animated: true)
+                }
+            
             if score % 7 == 0 {
                 let ac      = UIAlertController(title: "Level Completed!", message: "Well done! Get ready for the next let level!", preferredStyle: .alert)
                 let action  = UIAlertAction(title: "Let's Go!", style: .default, handler: levelUp)
@@ -172,6 +184,20 @@ class ViewController: UIViewController {
         currentAnswer.text  = currentAnswer.text?.appending(buttonTitle)
         activatedButton.append(sender)
         sender.isHidden     = true
+    }
+    
+    
+    func resetGame (action: UIAlertAction) {
+        level = 1
+        score = 0
+        currentAnswer.text  = ""
+        solutions.removeAll(keepingCapacity: true)
+        
+        
+        for button in letterButtons {
+            button.isHidden = false
+        }
+        loadLevel()
     }
     
     
