@@ -15,7 +15,6 @@
 		31F7F91727ADBE21006B09DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31F7F91527ADBE21006B09DF /* LaunchScreen.storyboard */; };
 		31F7F92027AEF98A006B09DF /* level-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 31F7F91E27AEF98A006B09DF /* level-1.txt */; };
 		31F7F92127AEF98A006B09DF /* level-2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 31F7F91F27AEF98A006B09DF /* level-2.txt */; };
-		31F7F92F27B0D7C3006B09DF /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7F92E27B0D7C3006B09DF /* Level.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,7 +28,6 @@
 		31F7F91827ADBE21006B09DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		31F7F91E27AEF98A006B09DF /* level-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "level-1.txt"; sourceTree = "<group>"; };
 		31F7F91F27AEF98A006B09DF /* level-2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "level-2.txt"; sourceTree = "<group>"; };
-		31F7F92E27B0D7C3006B09DF /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,7 +60,6 @@
 		31F7F90927ADBE21006B09DF /* SwiftyWords */ = {
 			isa = PBXGroup;
 			children = (
-				31F7F93027B0D7CC006B09DF /* Model */,
 				31F7F90A27ADBE21006B09DF /* AppDelegate.swift */,
 				31F7F90C27ADBE21006B09DF /* SceneDelegate.swift */,
 				31F7F90E27ADBE21006B09DF /* ViewController.swift */,
@@ -74,14 +71,6 @@
 				31F7F91827ADBE21006B09DF /* Info.plist */,
 			);
 			path = SwiftyWords;
-			sourceTree = "<group>";
-		};
-		31F7F93027B0D7CC006B09DF /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				31F7F92E27B0D7C3006B09DF /* Level.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -159,7 +148,6 @@
 			files = (
 				31F7F90F27ADBE21006B09DF /* ViewController.swift in Sources */,
 				31F7F90B27ADBE21006B09DF /* AppDelegate.swift in Sources */,
-				31F7F92F27B0D7C3006B09DF /* Level.swift in Sources */,
 				31F7F90D27ADBE21006B09DF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
