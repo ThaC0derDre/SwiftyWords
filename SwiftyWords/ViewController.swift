@@ -28,7 +28,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadLevel()
+        performSelector(inBackground: #selector(loadLevel), with: nil)
     }
     
     
@@ -216,7 +216,7 @@ class ViewController: UIViewController {
         for button in letterButtons {
             button.isHidden = false
         }
-        loadLevel()
+        performSelector(inBackground: #selector(loadLevel), with: nil)
     }
     
     
@@ -229,11 +229,11 @@ class ViewController: UIViewController {
             button.isHidden = false
         }
         level += 1
-        loadLevel()
+        performSelector(inBackground: #selector(loadLevel), with: nil)
     }
     
     
-    func loadLevel() {
+    @objc func loadLevel() {
         var solutionString              = ""
         var clueString                  = ""
         var letterBits                  = [String]()
@@ -259,18 +259,22 @@ class ViewController: UIViewController {
                 }
             }
         }
-        
-        answersLabel.text               = solutionString.trimmingCharacters(in: .whitespacesAndNewlines)
-        cluesLabel.text                 = clueString.trimmingCharacters(in: .whitespacesAndNewlines)
-        
-        letterButtons.shuffle()
-        
-        if letterButtons.count == letterBits.count {
-            for i in 0..<letterButtons.count {
-                letterButtons[i].setTitle(letterBits[i], for: .normal)
-            }
+        DispatchQueue.main.async { [weak self] in 
+            guard let self = self else { return }
+            self.answersLabel.text               = solutionString.trimmingCharacters(in: .whitespacesAndNewlines)
+            self.cluesLabel.text                 = clueString.trimmingCharacters(in: .whitespacesAndNewlines)
+            self.letterButtons.shuffle()
             
+            if self.letterButtons.count == letterBits.count {
+                for i in 0..<self.letterButtons.count {
+                    self.letterButtons[i].setTitle(letterBits[i], for: .normal)
+                }
+                
+            }
         }
+        
+        
+        
     }
 }
 
