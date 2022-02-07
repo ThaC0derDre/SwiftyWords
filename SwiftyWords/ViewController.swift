@@ -8,7 +8,7 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     var gameLabel: UILabel!
     var cluesLabel: UILabel!
     var answersLabel: UILabel!
@@ -36,51 +36,18 @@ class ViewController: UIViewController {
     }
     
     
-    
-    
     override func loadView() {
         view                   = UIView()
         view.backgroundColor   = .systemBackground
         configureLabels()
         configureCurrentAnswer()
         configureButtonCollection()
-        
-        NSLayoutConstraint.activate([
-            scoreLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
-            scoreLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
-            
-            gameLabel.topAnchor.constraint(equalTo: scoreLabel.bottomAnchor),
-            gameLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 100),
-            gameLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -100),
-
-            cluesLabel.topAnchor.constraint(equalTo: gameLabel.bottomAnchor),
-            cluesLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 100),
-            cluesLabel.widthAnchor.constraint(equalTo: view.layoutMarginsGuide.widthAnchor, multiplier: 0.6, constant: 100),
-            
-            answersLabel.topAnchor.constraint(equalTo: gameLabel.bottomAnchor),
-            answersLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -100),
-            answersLabel.widthAnchor.constraint(equalTo: view.layoutMarginsGuide.widthAnchor, multiplier: 0.4, constant: -100),
-            answersLabel.heightAnchor.constraint(equalTo: cluesLabel.heightAnchor),
-            
-            currentAnswer.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            currentAnswer.topAnchor.constraint(equalTo: cluesLabel.bottomAnchor, constant: 20),
-            currentAnswer.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5),
-            
-            submit.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 100),
-            submit.topAnchor.constraint(equalTo: currentAnswer.bottomAnchor),
-            submit.heightAnchor.constraint(equalToConstant: 44),
-            
-            clear.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -100),
-            clear.centerYAnchor.constraint(equalTo: submit.centerYAnchor),
-            clear.heightAnchor.constraint(equalToConstant: 44),
-            
-            buttonsView.topAnchor.constraint(equalTo: submit.bottomAnchor),
-            buttonsView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            buttonsView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -30),
-            buttonsView.widthAnchor.constraint(equalToConstant: 750),
-            buttonsView.heightAnchor.constraint(equalToConstant: 320)
-            
-        ])
+        configureConstraints()
+        createButtonsForCollection()
+    }
+    
+    
+    func createButtonsForCollection() {
         // set up buttons in Collection, 4x5 row to coloumn
         let width   = 150
         let height  = 80
@@ -98,7 +65,6 @@ class ViewController: UIViewController {
                 letterButtons.append(letterButton)
             }
         }
-        
     }
     
     
@@ -114,9 +80,9 @@ class ViewController: UIViewController {
     
     
     @objc func submitTapped (_ sender: UIButton) {
-            guard let submittedAnswer           = currentAnswer.text else { return }
-            if submittedAnswer == "" { return }
-            if let solutionPosition             = solutions.firstIndex(of: submittedAnswer) {
+        guard let submittedAnswer           = currentAnswer.text else { return }
+        if submittedAnswer == "" { return }
+        if let solutionPosition             = solutions.firstIndex(of: submittedAnswer) {
             activatedButton.removeAll()
             var updatedAnswers                  = answersLabel.text?.components(separatedBy: "\n")
             updatedAnswers?[solutionPosition]   = submittedAnswer
@@ -125,12 +91,12 @@ class ViewController: UIViewController {
             score               += 1
             currentAnswer.text  = ""
             
-                if score % 14 == 0 {
-                    let ac = UIAlertController(title: "Level Complete!", message: "Haha!\nWell done! You solved all the clues and beat the game!", preferredStyle: .alert)
-                    let action = UIAlertAction(title: "Play again!", style: .default, handler: resetGame)
-                    ac.addAction(action)
-                    present(ac, animated: true)
-                }
+            if score % 14 == 0 {
+                let ac = UIAlertController(title: "Level Complete!", message: "Haha!\nWell done! You solved all the clues and beat the game!", preferredStyle: .alert)
+                let action = UIAlertAction(title: "Play again!", style: .default, handler: resetGame)
+                ac.addAction(action)
+                present(ac, animated: true)
+            }
             
             if score % 7 == 0 {
                 let ac      = UIAlertController(title: "Level Completed!", message: "Well done! Get ready for the next let level!", preferredStyle: .alert)
@@ -139,14 +105,15 @@ class ViewController: UIViewController {
                 present(ac, animated: true)
             }
             
-            }else {
-                let ac = UIAlertController(title: "Wrong!", message: "Is that even a word?\nGuess again", preferredStyle: .alert)
-                let alert = UIAlertAction(title: "Ok", style: .cancel)
-                ac.addAction(alert)
-                present(ac, animated: true)
-            }
+        }else {
+            let ac = UIAlertController(title: "Wrong!", message: "Is that even a word?\nGuess again", preferredStyle: .alert)
+            let alert = UIAlertAction(title: "Ok", style: .cancel)
+            ac.addAction(alert)
+            present(ac, animated: true)
+        }
         
     }
+    
     
     @objc func letterTapped (_ sender: UIButton) {
         guard let buttonTitle = sender.titleLabel?.text else { return }
@@ -211,7 +178,7 @@ class ViewController: UIViewController {
             }
         }
         
-        DispatchQueue.main.async { [weak self] in 
+        DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.answersLabel.text               = solutionString.trimmingCharacters(in: .whitespacesAndNewlines)
             self.cluesLabel.text                 = clueString.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -291,6 +258,46 @@ class ViewController: UIViewController {
         clear.translatesAutoresizingMaskIntoConstraints         = false
         clear.addTarget(self, action: #selector(clearTapped(_:)), for: .touchUpInside)
         view.addSubview(clear)
+    }
+    
+    
+    func configureConstraints() {
+        NSLayoutConstraint.activate([
+            scoreLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+            scoreLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+            
+            gameLabel.topAnchor.constraint(equalTo: scoreLabel.bottomAnchor),
+            gameLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 100),
+            gameLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -100),
+            
+            cluesLabel.topAnchor.constraint(equalTo: gameLabel.bottomAnchor),
+            cluesLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 100),
+            cluesLabel.widthAnchor.constraint(equalTo: view.layoutMarginsGuide.widthAnchor, multiplier: 0.6, constant: 100),
+            
+            answersLabel.topAnchor.constraint(equalTo: gameLabel.bottomAnchor),
+            answersLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -100),
+            answersLabel.widthAnchor.constraint(equalTo: view.layoutMarginsGuide.widthAnchor, multiplier: 0.4, constant: -100),
+            answersLabel.heightAnchor.constraint(equalTo: cluesLabel.heightAnchor),
+            
+            currentAnswer.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            currentAnswer.topAnchor.constraint(equalTo: cluesLabel.bottomAnchor, constant: 20),
+            currentAnswer.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5),
+            
+            submit.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 100),
+            submit.topAnchor.constraint(equalTo: currentAnswer.bottomAnchor),
+            submit.heightAnchor.constraint(equalToConstant: 44),
+            
+            clear.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -100),
+            clear.centerYAnchor.constraint(equalTo: submit.centerYAnchor),
+            clear.heightAnchor.constraint(equalToConstant: 44),
+            
+            buttonsView.topAnchor.constraint(equalTo: submit.bottomAnchor),
+            buttonsView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            buttonsView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -30),
+            buttonsView.widthAnchor.constraint(equalToConstant: 750),
+            buttonsView.heightAnchor.constraint(equalToConstant: 320)
+            
+        ])
     }
 }
 
