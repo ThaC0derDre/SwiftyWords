@@ -115,11 +115,11 @@ class ViewController: UIViewController {
             currentAnswer.topAnchor.constraint(equalTo: cluesLabel.bottomAnchor, constant: 20),
             currentAnswer.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5),
             
-            submit.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -100),
+            submit.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 100),
             submit.topAnchor.constraint(equalTo: currentAnswer.bottomAnchor),
             submit.heightAnchor.constraint(equalToConstant: 44),
             
-            clear.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 100),
+            clear.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -100),
             clear.centerYAnchor.constraint(equalTo: submit.centerYAnchor),
             clear.heightAnchor.constraint(equalToConstant: 44),
             
