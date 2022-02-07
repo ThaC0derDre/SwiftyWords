@@ -14,6 +14,10 @@ class ViewController: UIViewController {
     var answersLabel: UILabel!
     var scoreLabel: UILabel!
     var currentAnswer: UITextField!
+    var buttonsView: UIView!
+    
+    var submit: UIButton!
+    var clear: UIButton!
     
     var letterButtons   = [UIButton]()
     var activatedButton = [UIButton]()
@@ -32,67 +36,14 @@ class ViewController: UIViewController {
     }
     
     
+    
+    
     override func loadView() {
-        view                                                    = UIView()
-        view.backgroundColor                                    = .systemBackground
-        
-        gameLabel                                               = UILabel()
-        gameLabel.text                                          = "Swifty Words"
-        gameLabel.textAlignment                                 = .center
-        gameLabel.textColor                                     = .systemIndigo
-        gameLabel.font                                          = UIFont(name: "Zapfino", size: 60)
-        gameLabel.translatesAutoresizingMaskIntoConstraints     = false
-        view.addSubview(gameLabel)
-                                    
-        scoreLabel                                              = UILabel()
-        scoreLabel.textAlignment                                = .right
-        scoreLabel.text                                         = "Score = 0"
-        scoreLabel.translatesAutoresizingMaskIntoConstraints    = false
-        view.addSubview(scoreLabel)
-        
-        cluesLabel                                              = UILabel()
-        cluesLabel.text                                         = "CLUES"
-        cluesLabel.font                                         = UIFont.systemFont(ofSize: 24)
-        cluesLabel.numberOfLines                                = 0
-        cluesLabel.translatesAutoresizingMaskIntoConstraints    = false
-        cluesLabel.setContentHuggingPriority(UILayoutPriority(1), for: .vertical)
-        view.addSubview(cluesLabel)
-        
-        answersLabel                                            = UILabel()
-        answersLabel.text                                       = "ANSWERS"
-        answersLabel.font                                       = UIFont.systemFont(ofSize: 24)
-        answersLabel.numberOfLines                              = 0
-        answersLabel.textAlignment                              = .right
-        answersLabel.translatesAutoresizingMaskIntoConstraints  = false
-        answersLabel.setContentHuggingPriority(UILayoutPriority(1), for: .vertical)
-        view.addSubview(answersLabel)
-        
-        currentAnswer                                           = UITextField()
-        currentAnswer.textAlignment                             = .center
-        currentAnswer.placeholder                               = "Tap letters to guess"
-        currentAnswer.font                                      = UIFont.systemFont(ofSize: 44)
-        currentAnswer.isUserInteractionEnabled                  = false
-        currentAnswer.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(currentAnswer)
-        
-        let buttonsView                                         = UIView()
-        buttonsView.layer.borderColor                           = UIColor.systemGray.cgColor
-        buttonsView.layer.borderWidth                           = 2
-        buttonsView.translatesAutoresizingMaskIntoConstraints   =   false
-        view.addSubview(buttonsView)
-        
-        let submit                                              = UIButton(type: .system)
-        submit.setTitle("SUBMIT", for: .normal)
-        submit.translatesAutoresizingMaskIntoConstraints        = false
-        submit.addTarget(self, action: #selector(submitTapped(_:)), for: .touchUpInside)
-        view.addSubview(submit)
-        
-        let clear                                               = UIButton(type: .system)
-        clear.setTitle("CLEAR", for: .normal)
-        clear.translatesAutoresizingMaskIntoConstraints         = false
-        clear.addTarget(self, action: #selector(clearTapped(_:)), for: .touchUpInside)
-        view.addSubview(clear)
-        
+        view                   = UIView()
+        view.backgroundColor   = .systemBackground
+        configureLabels()
+        configureCurrentAnswer()
+        configureButtonCollection()
         
         NSLayoutConstraint.activate([
             scoreLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
@@ -259,6 +210,7 @@ class ViewController: UIViewController {
                 }
             }
         }
+        
         DispatchQueue.main.async { [weak self] in 
             guard let self = self else { return }
             self.answersLabel.text               = solutionString.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -273,8 +225,72 @@ class ViewController: UIViewController {
             }
         }
         
+    }
+    
+    
+    func configureLabels() {
+        gameLabel                                               = UILabel()
+        gameLabel.text                                          = "Swifty Words"
+        gameLabel.textAlignment                                 = .center
+        gameLabel.textColor                                     = .systemIndigo
+        gameLabel.font                                          = UIFont(name: "Zapfino", size: 60)
+        gameLabel.translatesAutoresizingMaskIntoConstraints     = false
+        view.addSubview(gameLabel)
         
+        scoreLabel                                              = UILabel()
+        scoreLabel.textAlignment                                = .right
+        scoreLabel.text                                         = "Score = 0"
+        scoreLabel.translatesAutoresizingMaskIntoConstraints    = false
+        view.addSubview(scoreLabel)
         
+        cluesLabel                                              = UILabel()
+        cluesLabel.text                                         = "CLUES"
+        cluesLabel.font                                         = UIFont.systemFont(ofSize: 24)
+        cluesLabel.numberOfLines                                = 0
+        cluesLabel.translatesAutoresizingMaskIntoConstraints    = false
+        cluesLabel.setContentHuggingPriority(UILayoutPriority(1), for: .vertical)
+        view.addSubview(cluesLabel)
+        
+        answersLabel                                            = UILabel()
+        answersLabel.text                                       = "ANSWERS"
+        answersLabel.font                                       = UIFont.systemFont(ofSize: 24)
+        answersLabel.numberOfLines                              = 0
+        answersLabel.textAlignment                              = .right
+        answersLabel.translatesAutoresizingMaskIntoConstraints  = false
+        answersLabel.setContentHuggingPriority(UILayoutPriority(1), for: .vertical)
+        view.addSubview(answersLabel)
+    }
+    
+    
+    func configureCurrentAnswer() {
+        currentAnswer                                           = UITextField()
+        currentAnswer.textAlignment                             = .center
+        currentAnswer.placeholder                               = "Tap letters to guess"
+        currentAnswer.font                                      = UIFont.systemFont(ofSize: 44)
+        currentAnswer.isUserInteractionEnabled                  = false
+        currentAnswer.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(currentAnswer)
+    }
+    
+    
+    func configureButtonCollection() {
+        buttonsView                                             = UIView()
+        buttonsView.layer.borderColor                           = UIColor.systemGray.cgColor
+        buttonsView.layer.borderWidth                           = 2
+        buttonsView.translatesAutoresizingMaskIntoConstraints   =   false
+        view.addSubview(buttonsView)
+        
+        submit                                              = UIButton(type: .system)
+        submit.setTitle("SUBMIT", for: .normal)
+        submit.translatesAutoresizingMaskIntoConstraints        = false
+        submit.addTarget(self, action: #selector(submitTapped(_:)), for: .touchUpInside)
+        view.addSubview(submit)
+        
+        clear                                               = UIButton(type: .system)
+        clear.setTitle("CLEAR", for: .normal)
+        clear.translatesAutoresizingMaskIntoConstraints         = false
+        clear.addTarget(self, action: #selector(clearTapped(_:)), for: .touchUpInside)
+        view.addSubview(clear)
     }
 }
 
